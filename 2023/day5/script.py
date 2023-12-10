@@ -1,9 +1,7 @@
 import concurrent.futures
 import time
 
-def part_One(file_path):
-    
-    def convert(seed, maps):
+def convert(seed, maps):
         num = seed
         for r in maps:
             for dest_start, source_start, length in r:
@@ -12,8 +10,7 @@ def part_One(file_path):
                     break
         return num
 
-    with open(file_path) as f:
-        arr_paragraphs = f.read().split('\n\n')
+def card_announcement():
 
     # Define the mappings for each conversion step
     seed_to_soil_map = []
@@ -30,6 +27,14 @@ def part_One(file_path):
         water_to_light_map, light_to_temperature_map, temperature_to_humidity_map,
         humidity_to_location_map
     ]
+
+    return all_maps
+
+def task1(file_path):
+    with open(file_path) as f:
+        arr_paragraphs = f.read().split('\n\n')
+
+    all_maps = card_announcement()
 
     # List of initial seeds
     seeds = [int(i) for i in arr_paragraphs[0].split(': ')[1].split()]
@@ -48,14 +53,6 @@ def part_One(file_path):
 
     return min_location
 
-def convert(seed, maps):
-        num = seed
-        for r in maps:
-            for dest_start, source_start, length in r:
-                if source_start <= num < source_start + length:
-                    num = dest_start + (num - source_start)
-                    break
-        return num
 
 def process_seed(seed_data):
     seed_start, seed_length, all_maps = seed_data
@@ -65,26 +62,11 @@ def process_seed(seed_data):
         min_location = min(min_location, location)
     return min_location
 
-def part_Two(file_path):
-
+def task2(file_path):
     with open(file_path) as f:
         arr_paragraphs = f.read().split('\n\n')
 
-    # Define the mappings for each conversion step
-    seed_to_soil_map = []
-    soil_to_fertilizer_map = []
-    fertilizer_to_water_map = []
-    water_to_light_map = []
-    light_to_temperature_map = []
-    temperature_to_humidity_map = []
-    humidity_to_location_map = []
-
-    # Combine all the maps
-    all_maps = [
-        seed_to_soil_map, soil_to_fertilizer_map, fertilizer_to_water_map,
-        water_to_light_map, light_to_temperature_map, temperature_to_humidity_map,
-        humidity_to_location_map
-    ]
+    all_maps = card_announcement()
 
     # List of initial seeds
     seeds = [int(i) for i in arr_paragraphs[0].split(': ')[1].split()]
@@ -97,16 +79,9 @@ def part_Two(file_path):
             all_maps[i].append([int(i) for i in k.split()])
 
     # Find the lowest location number corresponding to any of the initial seeds
-
-    # min_location = float('inf')
-    # for seed_start, seed_length in pairs_seeds:
-    #     for seed_num in range(seed_start, seed_start + seed_length):
-    #         location = convert(seed_num, all_maps)
-    #         min_location = min(min_location, location)
-    start_time = time.time()
-
     min_location = float('inf')
 
+    start_time = time.time()
     seed_data = [(seed_start, seed_length, all_maps) for seed_start, seed_length in pairs_seeds]
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = executor.map(process_seed, seed_data)
@@ -119,8 +94,8 @@ def part_Two(file_path):
     return min_location
 
 def main():
-    # print('Part one:', part_One('day5/input.txt')) # 282277027
-    print('Part two:', part_Two('day5/input.txt')) # 
+    # print('Part one:', task1('2023/day5/input.txt')) # 282277027
+    print('Part two:', task2('2023/day5/input.txt')) # 
 
 if __name__ == "__main__":
     main()
