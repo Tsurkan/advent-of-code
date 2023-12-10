@@ -1,98 +1,49 @@
-import sys
+def task1(file_path):
+    with open(file_path, 'r') as file:
+        game_array = file.readlines()
+    
+    total_sum = 0
 
-sys.setrecursionlimit(15000)  # Set a higher recursion limit, adjust as needed
+    for card_info in game_array:
 
-def find_all_paths(layout):
-    def next_position(i, j, direction):
-        moves = {'north': (-1, 0), 'south': (1, 0), 'east': (0, 1), 'west': (0, -1)}
-        di, dj = moves[direction]
-        return i + di, j + dj
+        # Parsing the card information
+        _, numbers = card_info.strip().split(': ')
+        win_numbers, all_numbers = map(lambda x: set(map(int, x.split())), numbers.split(' | '))
+            
+        points = 0
+        for num in all_numbers:
+            if num in win_numbers:
+                points = points + 1 if points == 0 else points * 2
+        total_sum += points
 
-    def determine_direction(layout, i, j):
-        directions = {
-            '|': ('south' if (i - 1, j) in visited else 'north'),
-            '-': ('east' if (i, j - 1) in visited else 'west'),
-            'L': ('east' if (i - 1, j) in visited else 'north'),
-            'J': ('west' if (i - 1, j) in visited else 'north'),
-            '7': ('south' if (i, j - 1) in visited else 'west'),
-            'F': ('east' if (i + 1, j) in visited else 'south')
-        }
+    return total_sum
 
-        if layout[i][j] == 'S':
-            a[0] += 1
-            return a[a[0]]
+def task2(file_path):
+    with open(file_path, 'r') as file:
+        game_array = file.readlines()
 
-        return directions.get(layout[i][j], None)
+    total_sum = 0
+    copy_card = [1] * len(game_array)
 
-    def explore_path(current_i, current_j, path, steps):
-        visited.add((current_i, current_j))
-        direction = determine_direction(layout, current_i, current_j)
+    for i, card_info in enumerate(game_array):
+        total_sum += copy_card[i]
 
-        if direction is None:
-            visited.remove((current_i, current_j))
-            return steps, path
+        # Parsing the card information
+        _, numbers = card_info.strip().split(': ')
+        win_numbers, all_numbers = map(lambda x: set(map(int, x.split())), numbers.split(' | '))
 
-        next_i, next_j = next_position(current_i, current_j, direction)
+        points = 0
+        for num in all_numbers:
+            if num in win_numbers:
+                points += 1
+                if i + points < len(copy_card):
+                    copy_card[i + points] += copy_card[i]
 
-        if next_i < 0 or next_i >= len(layout) or next_j < 0 or next_j >= len(layout[0]):
-            visited.remove((current_i, current_j))
-            return steps, path
+    return total_sum
 
-        if (next_i, next_j) in visited:
-            visited.remove((current_i, current_j))
-            return steps, path
+def main():
+    print('Part one:', task1('2023/day4/input.txt')) # 25231
+    print('Part two:', task2('2023/day4/input.txt')) # 9721255
 
-        new_path = path + [(next_i, next_j)]
-
-        if len(new_path) > 2 and new_path[0] == new_path[-1]:
-            visited.remove((current_i, current_j))
-            return steps, new_path
-
-        return explore_path(next_i, next_j, new_path, steps + 1)
-
-    layout = layout.split('\n')
-
-    start_i, start_j = next(
-        ((i, j) for i, row in enumerate(layout) for j, val in enumerate(row) if val == 'S'),
-        (None, None)
-    )
-
-    if start_i is None:
-        return []
-
-    a = [0, 'north', 'south', 'west', 'east']
-    visited = set()
-    paths = []
-
-    for _ in range(4):
-        steps, path = explore_path(start_i, start_j, [(start_i, start_j)], 1)
-        paths.append(path)
-
-    return paths
-
-def part_One(file_path):
-    def max_points_before_intersection(lists):
-        max_points = 0
-        intersection_index = None
-
-        for i in range(min(len(lists[0]), len(lists[1]))):
-            if lists[0][i] == lists[1][i]:
-                intersection_index = i
-                break
-
-        if intersection_index is not None:
-            max_points = intersection_index + 1
-        else:
-            max_points = min(len(lists[0]), len(lists[1]))
-
-        return max_points
-
-    with open(file_path) as f:
-        input_data = f.read()
-
-    paths = find_all_paths(input_data)
-    paths = [path[0][1:] for path in paths if path and len(path[0]) > 1]
-
-    return max_points_before_intersection(paths)
-
-print('Part one:', part_One('day10/input.txt'))
+if __name__ == "__main__":
+    main()

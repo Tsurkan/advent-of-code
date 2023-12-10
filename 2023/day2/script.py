@@ -1,7 +1,5 @@
-# only 12 red cubes, 13 green cubes, and 14 blue cubes
-def part_One(file_path):
-    cubes = ['red', 'green', 'blue']
-
+# Reading data from the file and processing game information
+def input_data(file_path):
     with open(file_path) as f:
         games = {}
         for line in f:
@@ -10,39 +8,29 @@ def part_One(file_path):
             for element in parts[1].strip().split('; '):
                 for item in element.split(', '):
                     quantity, color = item.split(' ')
-                    if color in game:
-                        if game[color] < int(quantity):
-                            game[color] = int(quantity)
-                    else:
-                        game[color] = int(quantity)
-            games[parts[0]] = game
 
+                    # Update the maximum count of each cube color
+                    game[color] = max(game.get(color, 0), int(quantity)) 
+            games[parts[0]] = game
+    return games
+
+def task1(file_path):
+    cube_limits = { 'red': 12, 'green': 13, 'blue': 14 } # Cube colors and their limits
+
+    games = input_data(file_path)
+
+    # Calculating the sum of valid game scores based on cube counts
     valid_sum = 0
     for game, cube_counts in games.items():
-        valid = True
-        for cube, limit in zip(cubes, [12, 13, 14]):
-            if cube_counts.get(cube, 0) > limit:
-                valid = False
-                break
-        if valid:
+        if all(cube_counts.get(cube, 0) <= limit for cube, limit in cube_limits.items()):
             valid_sum += int(game.split(' ')[1])
             
     return valid_sum
 
-def part_Two(file_path):
-    cubes = ['red', 'green', 'blue']
+def task2(file_path):
+    games = input_data(file_path)
 
-    with open(file_path) as f:
-        games = {}
-        for line in f:
-            game = {}
-            parts = line.split(':')
-            for element in parts[1].strip().split('; '):
-                for item in element.split(', '):
-                    quantity, color = item.split(' ')
-                    game[color] = max(game.get(color, 0), int(quantity))
-            games[parts[0]] = game
-
+    # Calculating the total sum based on products of cube quantities in each game
     total_sum = 0
     for game in games.values():
         product = 1
@@ -53,8 +41,8 @@ def part_Two(file_path):
     return total_sum
 
 def main():
-    print('Part one:', part_One('day2/input.txt')) # 3099
-    print('Part two:', part_Two('day2/input.txt')) # 72970
+    print('Part one:', task1('2023/day2/input.txt')) # 3099
+    print('Part two:', task2('2023/day2/input.txt')) # 72970
 
 if __name__ == "__main__":
     main()
