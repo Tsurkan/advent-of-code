@@ -87,8 +87,9 @@ def task2(file_path):
     return total
 
 def main():
-    print('Part one:', task1('2023/day3/input.txt')) # 527369
-    print('Part two:', task2('2023/day3/input.txt')) # 73074886
+    file_path = '2023/day3/input.txt'
+    print('Part one:', task1(file_path)) # 527369
+    print('Part two:', task2(file_path)) # 73074886
 
 if __name__ == "__main__":
     main()

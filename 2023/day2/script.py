@@ -41,8 +41,9 @@ def task2(file_path):
     return total_sum
 
 def main():
-    print('Part one:', task1('2023/day2/input.txt')) # 3099
-    print('Part two:', task2('2023/day2/input.txt')) # 72970
+    file_path = '2023/day2/input.txt'
+    print('Part one:', task1(file_path)) # 3099
+    print('Part two:', task2(file_path)) # 72970
 
 if __name__ == "__main__":
     main()
