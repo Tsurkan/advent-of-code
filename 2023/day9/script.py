@@ -26,8 +26,9 @@ def task_2(file_path):
     return sum([get_final_sum_task_2(h) for h in histories])
 
 def main():
-    print('Part one:', task_1('2023/day9/input.txt')) # 1762065988
-    print('Part two:', task_2('2023/day9/input.txt')) # 1066
+    file_path = '2023/day9/input.txt'
+    print('Part one:', task_1(file_path)) # 1762065988
+    print('Part two:', task_2(file_path)) # 1066
 
 if __name__ == "__main__":
     main()

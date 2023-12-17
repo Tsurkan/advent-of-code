@@ -58,8 +58,9 @@ def task_2(file_path):
     return math.lcm(*all_steps)
 
 def main():
-    print('Part one:', task_1('2023/day8/input.txt')) # 16531
-    print('Part two:', task_2('2023/day8/input.txt')) # 24035773251517
+    file_path = '2023/day8/input.txt'
+    print('Part one:', task_1(file_path)) # 16531
+    print('Part two:', task_2(file_path)) # 24035773251517
 
 if __name__ == "__main__":
     main()
