@@ -18,9 +18,7 @@ def spin_cycle(reflector):
     return reflector
 
 def task_1(file_path):
-
-    # читаем строки из файла и формируем из них матрицу
-    with open('2023/day14/input.txt') as file:
+    with open(file_path) as file:
         reflector = [line.strip() for line in file]
     
     # Транспонируем матрицу.
@@ -35,7 +33,7 @@ def task_1(file_path):
     return sum(row.count("O") * (i + 1) for i, row in enumerate(reversed(reflector)))
 
 def task_2(file_path):
-    with open('2023/day14/input.txt') as file:
+    with open(file_path) as file:
         reflector = tuple(line.strip() for line in file)
 
     # Словарь для отслеживания уже просмотренных сеток и список индексов
