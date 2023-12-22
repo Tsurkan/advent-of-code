@@ -28,9 +28,6 @@ def evaluate_condition(part, current_step, workflow):
 
             # Рекурсивно вызвать evaluate_condition для действия
             return evaluate_condition(part, action, workflow)
-    
-    # Если ни одно из условий не выполнено, вызвать исключение
-    raise Exception(step_rules)
 
 # Функция принимает символ (character), флаг is_greater для указания больше/меньше, значение (value) 
 # и набор диапазонов (ranges). Она адаптирует диапазоны в соответствии с заданными параметрами.
