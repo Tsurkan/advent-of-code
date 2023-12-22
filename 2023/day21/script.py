@@ -165,7 +165,7 @@ def calculate_values(dimension, positions, steps):
 
 # I learned about the rhombus shape of the input grid on the forum. This information helped a lot with the denouement.
 def task_2(file_path):
-    matrix, start_position = initialize_matrix("2023/day21/input.txt") # start_position = (65, 65)
+    matrix, start_position = initialize_matrix(file_path) # start_position = (65, 65)
     positions = fill_map(matrix, start_position)
     return calculate_values(len(matrix), positions, 26501365) # По условию шагов 26501365
 
