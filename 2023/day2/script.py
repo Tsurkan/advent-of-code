@@ -4,7 +4,7 @@ def input_data(file_path):
         games = {}
         for line in f:
             game = {}
-            parts = line.split(':')
+            parts = line.strip().split(':')
             for element in parts[1].strip().split('; '):
                 for item in element.split(', '):
                     quantity, color = item.split(' ')
