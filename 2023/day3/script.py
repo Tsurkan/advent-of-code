@@ -1,7 +1,7 @@
 def task1(file_path):
 
     with open(file_path, 'r') as f:
-        input_data = f.read().splitlines()
+        input_data = [line.strip() for line in f.read().splitlines()]
 
     # Function to retrieve slices and handle boundary cases efficiently
     def get_slice(x, y1, y2):

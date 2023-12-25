@@ -91,7 +91,6 @@ def task_2(file_path):
 
 def main():
     file_path = '2023/day7/input.txt'
-    # file_path = '2023/day7/t_input1.txt'
 
     print('Part one:', task_1(file_path)) # 250453939
     print('Part two:', task_2(file_path)) # 248652697

@@ -41,7 +41,7 @@ def task1(file_path):
     for i, e in enumerate(arr_paragraphs):
         for k in e.split(':\n')[1].split('\n'):
             all_maps[i].append([int(i) for i in k.split()])
-
+            
     # Find the lowest location number corresponding to any of the initial seeds
     min_location = float('inf')
     for seed in seeds:
