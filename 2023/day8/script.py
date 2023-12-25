@@ -3,7 +3,7 @@ import math
 # Process the instructions and create a node map
 def preprocess_instructions(data):
     instructions = {}
-    nodes = data[1].split('\n')
+    nodes = [i.strip() for i in data[1].split('\n')]
     for line in nodes:
         parts = line.split(' = (')
         node = parts[0]
