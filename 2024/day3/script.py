@@ -1,34 +1,37 @@
 import re
 
 def read_file(file_path):
-    """Reads the entire content of a file."""
+    """Зчитує весь вміст файлу."""
     with open(file_path, 'r') as f:
         return f.read()
 
 
 def task_1(data):
-    """Calculates the sum of all products found in mul(a, b)."""
+    """Обчислює суму всіх добутків, знайдених у mul(a, b)."""
 
-    # Шаблон для поиска *mul(число1,число2) в разных формах
+    # Шаблон для пошуку *mul(число1,число2) у різних формах
     pattern = r"[a-zA-Z_]*mul\((\d+),(\d+)\)"
 
+    # Складність: O(n)
     return sum(int(a) * int(b) for a, b in re.findall(pattern, data))
 
 
 
 def task_2(data):
-    """Calculates the sum of products for mul(a, b) considering control instructions."""
+    """Обчислює суму добутків для mul(a, b) з урахуванням контрольних інструкцій."""
 
-    # Шаблон для поиска mul(число1,число2), do() и don't()
+    # Шаблон для пошуку mul(число1,число2)
     mul_pattern = r"[a-zA-Z_]*mul\((\d+),(\d+)\)"
+
+    # Шаблон для пошуку інструкцій do() і don't()
     control_pattern = r"\b(do|don't)\(\)"
 
-    # Собираем события: mul и инструкции
+    # Складність кожного: O(n)
     events = []
     events.extend((m.start(), 'mul', m.groups()) for m in re.finditer(mul_pattern, data))
     events.extend((m.start(), 'control', m.group(1)) for m in re.finditer(control_pattern, data))
     
-    # Сортируем по порядку появления
+    # Сортуємо події за порядком їх появи в тексті. Складність: O(m log m), де m — кількість знайдених подій
     events.sort(key=lambda x: x[0])
 
     mul_enabled = True

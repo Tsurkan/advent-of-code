@@ -1,30 +1,36 @@
+# Складність: O(n*m), де n — кількість рядків у файлі, а m — кількість елементів у кожному рядку.
 def parse_file(file_path):
-    """Reads rows from a file as a generator."""
+    """Зчитує рядки з файлу як генератор."""
     with open(file_path, 'r') as f:
         for line in f:
             yield list(map(int, line.split()))
 
 
+# Складність: O(m), де m — кількість елементів у масиві
 def is_trend_valid(arr):
-    """Checks if the array is strictly increasing or decreasing with valid differences."""
+    """Перевіряє, чи є масив строго зростаючим або спадаючим з допустимими відмінностями."""
     increasing, decreasing = True, True
     for i in range(len(arr) - 1):
         diff = arr[i + 1] - arr[i]
-        if not (1 <= abs(diff) <= 3): # от 1 до 3
-            return False  # Прерываем сразу при недопустимой разнице
+        if not (1 <= abs(diff) <= 3): # від 1 до 3
+            return False  # Повертаємо False при недопустимій відмінності
         if diff > 0:
-            decreasing = False
+            decreasing = False # Якщо відмінність додатна, масив не є спадаючим
         elif diff < 0:
-            increasing = False
+            increasing = False # Якщо відмінність від'ємна, масив не є зростаючим
         if not (increasing or decreasing):
-            return False  # Прерываем, если оба условия нарушены
+            return False  # Якщо обидва умови порушені, повертаємо False
     return True
 
 
+# Складність: O(m^2), де m — кількість елементів у рядку. 
 def check_row(row):
-    """Checks if the row or any of its one-element-removed variants is valid."""
+    """Перевіряє, чи рядок або будь-яка його варіація з видаленим одним елементом є дійсною."""
+    # Перевіряємо без змін
     if is_trend_valid(row):
         return True
+    
+    # Перевіряємо всі можливі варіації з видаленим одним елементом
     for i in range(len(row)):
         if is_trend_valid([row[j] for j in range(len(row)) if j != i]):
             return True
