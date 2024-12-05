@@ -30,7 +30,7 @@ def task_2(file_path):
 
 
 def main():
-    file_path = '2024/day1/input1.txt'
+    file_path = '2024/day1/input.txt'
     print('Part one:', task_1(file_path))  # 1941353
     print('Part two:', task_2(file_path))  # 22539317
 
