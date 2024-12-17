@@ -32,12 +32,12 @@ def task(grid, moves):
 def main(file_path='2024/day15/input.txt'):
     grid, moves = open(file_path).read().split('\n\n')
 
-    print('Part one:', task(grid, moves))  # 1430439
+    print('Part 1:', task(grid, moves))  # 1430439
 
     # Збільшуэмо карту подвоюючи кожний едемент на карті
     grid = grid.translate(str.maketrans({'#':'##', '.':'..', 'O':'[]', '@':'@.'}))
     
-    print('Part one:', task(grid, moves))  # 1458740
+    print('Part 2:', task(grid, moves))  # 1458740
 
 if __name__ == "__main__":
     main()
