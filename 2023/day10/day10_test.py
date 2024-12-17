@@ -29,24 +29,6 @@ class TestDay10(unittest.TestCase):
                         L.L7LFJ|||||FJL7||LJ
                         L7JLJL-JLJLJL--JLJ.L"""
 
-    # def test_get_final_sum_task_1_with_example_data(self):
-    #     self.assertEqual(script.get_final_sum_task_1([0, 3, 6, 9, 12, 15]), 18)
-    #     self.assertEqual(script.get_final_sum_task_1([1, 3, 6, 10, 15, 21]), 28)
-    #     self.assertEqual(script.get_final_sum_task_1([10, 13, 16, 21, 30, 45]), 68)
-
-    # def test_get_final_sum_task_2_with_example_data(self):
-    #     self.assertEqual(script.get_final_sum_task_2([0, 3, 6, 9, 12, 15]), -3)
-    #     self.assertEqual(script.get_final_sum_task_2([1, 3, 6, 10, 15, 21]), 0)
-    #     self.assertEqual(script.get_final_sum_task_2([10, 13, 16, 21, 30, 45]), 5)
-    
-    # @patch('builtins.open', new_callable=unittest.mock.mock_open, read_data=text_input)
-    # def test_task_1_with_example_data(self, mock_open):
-    #     self.assertEqual(script.task_1('some_file_path'), 114)
-
-    # @patch('builtins.open', new_callable=unittest.mock.mock_open, read_data=text_input)
-    # def test_task_2_with_example_data(self, mock_open):
-    #     self.assertEqual(script.task_2('some_file_path'), 2)
-
     @patch('builtins.open', new_callable=unittest.mock.mock_open, read_data=text_input_1)
     def test_part1_with_example_data_1(self, mock_open):
         self.assertEqual(script.main('some_file_path')[0], 4)
